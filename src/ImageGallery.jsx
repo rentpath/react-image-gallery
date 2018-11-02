@@ -58,6 +58,7 @@ export default class ImageGallery extends React.Component {
     defaultImage: PropTypes.string,
     indexSeparator: PropTypes.string,
     thumbnailPosition: PropTypes.string,
+    lastThumbnailOffset: PropTypes.number,
     startIndex: PropTypes.number,
     slideDuration: PropTypes.number,
     slideInterval: PropTypes.number,
@@ -109,6 +110,7 @@ export default class ImageGallery extends React.Component {
     stopPropagation: false,
     indexSeparator: ' / ',
     thumbnailPosition: 'bottom',
+    lastThumbnailOffset: 1,
     startIndex: 0,
     slideDuration: 450,
     swipingTransitionDuration: 0,
@@ -634,8 +636,10 @@ export default class ImageGallery extends React.Component {
       }
 
       let totalThumbnails = this._thumbnails.children.length;
+      let lastThumbnailOffset = this.props.lastThumbnailOffset > 0 ? this.props.lastThumbnailOffset : 1;
+
       // scroll-x required per index change
-      let perIndexScroll = totalScroll / (totalThumbnails - 1);
+      let perIndexScroll = totalScroll / (totalThumbnails - lastThumbnailOffset);
 
       return indexDifference * perIndexScroll;
 

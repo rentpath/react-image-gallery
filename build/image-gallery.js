@@ -657,8 +657,10 @@ var ImageGallery = function (_React$Component) {
         }
 
         var totalThumbnails = this._thumbnails.children.length;
+        var lastThumbnailOffset = this.props.lastThumbnailOffset > 0 ? this.props.lastThumbnailOffset : 1;
+
         // scroll-x required per index change
-        var perIndexScroll = totalScroll / (totalThumbnails - 1);
+        var perIndexScroll = totalScroll / (totalThumbnails - lastThumbnailOffset);
 
         return indexDifference * perIndexScroll;
       }
@@ -1160,6 +1162,7 @@ ImageGallery.propTypes = {
   defaultImage: _propTypes2.default.string,
   indexSeparator: _propTypes2.default.string,
   thumbnailPosition: _propTypes2.default.string,
+  lastThumbnailOffset: _propTypes2.default.number,
   startIndex: _propTypes2.default.number,
   slideDuration: _propTypes2.default.number,
   slideInterval: _propTypes2.default.number,
@@ -1210,6 +1213,7 @@ ImageGallery.defaultProps = {
   stopPropagation: false,
   indexSeparator: ' / ',
   thumbnailPosition: 'bottom',
+  lastThumbnailOffset: 1,
   startIndex: 0,
   slideDuration: 450,
   swipingTransitionDuration: 0,
