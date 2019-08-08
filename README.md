@@ -101,7 +101,7 @@ class MyComponent extends React.Component {
 * `infinite`: Boolean, default `true`
   * infinite sliding
 * `lazyLoad`: Boolean, default `false`
-* `preLoad`: Number, default `0`
+* `numberOfImagesToPreLoad`: Number, default `0`
   * If > 0, N extra divs are pre-rendered to support smooth multi-slide transitions
 * `showNav`: Boolean, default `true`
 * `showThumbnails`: Boolean, default `true`
