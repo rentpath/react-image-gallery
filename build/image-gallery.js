@@ -674,16 +674,17 @@ var ImageGallery = function (_React$Component) {
       var CENTER = 'center';
       var RIGHT = 'right';
 
-      switch (index) {
-        case currentIndex - 1:
-          alignment = ' ' + LEFT;
-          break;
-        case currentIndex:
-          alignment = ' ' + CENTER;
-          break;
-        case currentIndex + 1:
-          alignment = ' ' + RIGHT;
-          break;
+      if (index === currentIndex - 1) {
+        alignment = ' ' + LEFT;
+      } else if (index === currentIndex) {
+        alignment = ' ' + CENTER;
+      } else if (index === currentIndex + 1) {
+        alignment = ' ' + RIGHT;
+      } else if (this.props.preLoad > 0) {
+        var preLoadIndex = index - currentIndex;
+        if (preLoadIndex > 0 && preLoadIndex <= this.props.preLoad) {
+          alignment = ' ' + RIGHT + preLoadIndex;
+        }
       }
 
       if (this.props.items.length >= 3 && this.props.infinite) {
@@ -1189,7 +1190,8 @@ ImageGallery.propTypes = {
   renderItem: _propTypes2.default.func,
   stopPropagation: _propTypes2.default.bool,
   additionalClass: _propTypes2.default.string,
-  useTranslate3D: _propTypes2.default.bool
+  useTranslate3D: _propTypes2.default.bool,
+  preLoad: _propTypes2.default.number
 };
 ImageGallery.defaultProps = {
   items: [],
@@ -1218,6 +1220,7 @@ ImageGallery.defaultProps = {
   swipingTransitionDuration: 0,
   slideInterval: 3000,
   swipeThreshold: 30,
+  preLoad: 0,
   renderLeftNav: function renderLeftNav(onClick, disabled) {
     return _react2.default.createElement('button', {
       type: 'button',

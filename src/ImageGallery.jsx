@@ -87,6 +87,7 @@ export default class ImageGallery extends React.Component {
     stopPropagation: PropTypes.bool,
     additionalClass: PropTypes.string,
     useTranslate3D: PropTypes.bool,
+    preLoad: PropTypes.number,
   };
 
   static defaultProps = {
@@ -116,6 +117,7 @@ export default class ImageGallery extends React.Component {
     swipingTransitionDuration: 0,
     slideInterval: 3000,
     swipeThreshold: 30,
+    preLoad: 0,
     renderLeftNav: (onClick, disabled) => {
       return (
         <button
@@ -652,16 +654,17 @@ export default class ImageGallery extends React.Component {
     const CENTER = 'center';
     const RIGHT = 'right';
 
-    switch (index) {
-      case (currentIndex - 1):
-        alignment = ` ${LEFT}`;
-        break;
-      case (currentIndex):
-        alignment = ` ${CENTER}`;
-        break;
-      case (currentIndex + 1):
-        alignment = ` ${RIGHT}`;
-        break;
+    if (index === currentIndex - 1) {
+      alignment = ` ${LEFT}`;
+    } else if (index === currentIndex) {
+      alignment = ` ${CENTER}`;
+    } else if (index === currentIndex + 1) {
+      alignment = ` ${RIGHT}`;
+    } else if (this.props.preLoad > 0) {
+      const preLoadIndex = index - currentIndex;
+      if (preLoadIndex > 0 && preLoadIndex <= this.props.preLoad) {
+        alignment = ` ${RIGHT}${preLoadIndex}`;
+      }
     }
 
     if (this.props.items.length >= 3 && this.props.infinite) {
