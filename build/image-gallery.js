@@ -674,17 +674,23 @@ var ImageGallery = function (_React$Component) {
       var CENTER = 'center';
       var RIGHT = 'right';
 
-      if (index === currentIndex - 1) {
-        alignment = ' ' + LEFT;
-      } else if (index === currentIndex) {
-        alignment = ' ' + CENTER;
-      } else if (index === currentIndex + 1) {
-        alignment = ' ' + RIGHT;
-      } else if (this.props.numberOfImagesToPreLoad > 0) {
+      if (this.props.numberOfImagesToPreLoad > 0) {
         var preLoadIndex = index - currentIndex;
         if (preLoadIndex > 0 && preLoadIndex <= this.props.numberOfImagesToPreLoad) {
           alignment = ' ' + RIGHT + preLoadIndex;
         }
+      }
+
+      switch (index) {
+        case currentIndex - 1:
+          alignment = ' ' + LEFT;
+          break;
+        case currentIndex:
+          alignment = ' ' + CENTER;
+          break;
+        case currentIndex + 1:
+          alignment = ' ' + RIGHT;
+          break;
       }
 
       if (this.props.items.length >= 3 && this.props.infinite) {
