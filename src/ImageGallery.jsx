@@ -87,6 +87,7 @@ export default class ImageGallery extends React.Component {
     stopPropagation: PropTypes.bool,
     additionalClass: PropTypes.string,
     useTranslate3D: PropTypes.bool,
+    numberOfImagesToPreLoad: PropTypes.number,
   };
 
   static defaultProps = {
@@ -116,6 +117,7 @@ export default class ImageGallery extends React.Component {
     swipingTransitionDuration: 0,
     slideInterval: 3000,
     swipeThreshold: 30,
+    numberOfImagesToPreLoad: 0,
     renderLeftNav: (onClick, disabled) => {
       return (
         <button
@@ -651,6 +653,13 @@ export default class ImageGallery extends React.Component {
     const LEFT = 'left';
     const CENTER = 'center';
     const RIGHT = 'right';
+
+    if (this.props.numberOfImagesToPreLoad > 0) {
+      const preLoadIndex = index - currentIndex;
+      if (preLoadIndex > 0 && preLoadIndex <= this.props.numberOfImagesToPreLoad) {
+        alignment = ` ${RIGHT}${preLoadIndex}`;
+      }
+    }
 
     switch (index) {
       case (currentIndex - 1):
